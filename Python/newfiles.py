@@ -1,1 +1,0 @@
-print("Adicionando novos arquivos")
