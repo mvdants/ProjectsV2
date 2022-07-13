@@ -1,4 +1,4 @@
-from components.components_eletronics import Resistor, Capacitor, Inductor
+from components.components_eletronics import Resistor, Capacitor
 from math import pi, sqrt
 
 
