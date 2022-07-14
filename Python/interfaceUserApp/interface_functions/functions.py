@@ -9,7 +9,6 @@ def create_user(user: dict) -> None:
     users = read_json_file()
     users.append(user)
     users = write_json_file(users)
-    print(users)
 
 
 def read_json_file() -> list:
