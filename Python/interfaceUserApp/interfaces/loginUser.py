@@ -22,7 +22,9 @@ class UserLoginWindow(QMainWindow):
 
         # Setting parameter of the widgets
         self.username_LineEdit.setAlignment(Qt.AlignCenter)
+        self.username_LineEdit.setMinimumSize(UserLoginWindow.window_length, 25)
         self.password_LineEdit.setAlignment(Qt.AlignCenter)
+        self.password_LineEdit.setMinimumSize(UserLoginWindow.window_length, 25)
         self.password_LineEdit.setEchoMode(QLineEdit.Password)
         self.buttonEnter.setMinimumSize(100, 40)
 
@@ -50,7 +52,7 @@ class UserLoginWindow(QMainWindow):
 
         # Set some setting the the window
         self.setWindowTitle("User Login")
-        self.setFixedSize(UserLoginWindow.window_length, int(UserLoginWindow.window_high/2))
+        self.setMinimumSize(UserLoginWindow.window_length, int(UserLoginWindow.window_high/2))
         self.createStatusBar()
         self.centering()
 
