@@ -1,12 +1,26 @@
 [
     {
-        "id": 0,
-        "name" : "Miguel",
-        "surname" : "DANTAS"
+        "id":0,
+        "name":"Miguel",
+        "surname":"DANTAS"
     },
     {
-        "id": 1,
-        "name" : "Lara",
-        "surname": "DANTAS"
+        "id":1,
+        "name":"Lara",
+        "surname":"DANTAS"
+    },
+    {
+        "id":2,
+        "name":"Sarah",
+        "surname":"DANTAS"
+    },
+    {
+        "id":3,
+        "name":"Miguel",
+        "surname":"MACEDO DANTAS",
+        "birthday":"26-08-1999",
+        "gender":"M",
+        "email":"miguelvitordantas@gmail.com",
+        "password":"123456"
     }
 ]

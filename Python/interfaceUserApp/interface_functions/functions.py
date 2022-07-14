@@ -5,43 +5,32 @@ from typing import Union, Literal
 users_file = "../users/users.json"
 
 
-def service_files(file: str, service: Union[Literal["a", "r", "w"]], increment: Union[Literal["+", "-", ""]] = ""):
-    def opening_files(function):
-        def inner(*args, **kwargs):
-            with open(file, service+increment) as f:
-                function(*args, **kwargs)
-                f.close()
-            return function
-        return inner
-    return opening_files
+def create_user(user: dict) -> None:
+    users = read_json_file()
+    users.append(user)
+    users = write_json_file(users)
+    print(users)
 
 
-def create_user(name: str, surname: str) -> None:
-
-    dictionary = {
-        "name": name,
-        "surname": surname
-    }
-
-    with open(users_file, 'a', encoding="utf-8") as f:
-        json.dump(dictionary, f, ensure_ascii=False, indent=4, separator=",")
-        f.close()
-
-
-def read_json_file():
+def read_json_file() -> list:
     with open(users_file, 'r') as f:
         users = json.load(f)
-        print(users)
         f.close()
     return users
 
 
+def write_json_file(all_users: list) -> list:
+    with open(users_file, 'w', encoding="utf-8") as f:
+        json.dump(all_users, f, ensure_ascii=False, indent=4, separators=(",", ":"))
+        f.close()
+    return all_users
+
+
 if __name__ == '__main__':
-    # create_user("Lara", "DANTAS")
-    user = read_json_file()
-    user["users"].append({
-        "id": len(user["users"]),
-        "name": "Mel",
+    print("testing")
+    sarah = {
+        "id": len(read_json_file()),
+        "name": "Sarah",
         "surname": "DANTAS"
-    })
-    print(user)
+    }
+    create_user(sarah)
