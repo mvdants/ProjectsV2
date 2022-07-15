@@ -11,6 +11,34 @@ class User:
         self.__email = email
         self.__password = password
 
+    @property
+    def id(self):
+        return self.__id
+
+    @property
+    def name(self):
+        return self.__name
+
+    @property
+    def surname(self):
+        return self.__surname
+
+    @property
+    def birthday(self):
+        return self.__birthday
+
+    @property
+    def gender(self):
+        return self.__gender
+
+    @property
+    def email(self):
+        return self.__email
+
+    @property
+    def password(self):
+        return self.__password
+
     def user2json(self):
         return {
             "id": self.__id,
@@ -21,6 +49,17 @@ class User:
             "email": self.__email,
             "password": self.__password
         }
+
+    @staticmethod
+    def json2user(user: dict):
+        return User(
+            name=user["name"],
+            surname=user["surname"],
+            birthday=user["birthday"],
+            gender=user["gender"],
+            email=user["email"],
+            password=user["password"]
+        )
 
 
 if __name__ == '__main__':
