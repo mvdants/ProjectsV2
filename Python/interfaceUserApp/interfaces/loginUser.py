@@ -1,12 +1,14 @@
 import sys
 from PySide2.QtCore import Qt
 from PySide2.QtWidgets import (QApplication, QMainWindow, QDesktopWidget,
-                               QHBoxLayout, QVBoxLayout, QWidget,
+                               QVBoxLayout, QWidget,
                                QPushButton, QLabel, QLineEdit,
                                QStatusBar)
+from interfaces.basicInterface import BasicInterface
+from interface_functions.functions import verify_user
 
 
-class UserLoginWindow(QMainWindow):
+class UserLoginWindow(BasicInterface):
 
     window_length = 400
     window_high = 400
@@ -63,7 +65,16 @@ class UserLoginWindow(QMainWindow):
         self.move(qr.topLeft())
 
     def __button_enter_clicked(self):
-        print(self.password_LineEdit.text())
+        ver = verify_user(self.username_LineEdit.text(), self.password_LineEdit.text())
+        if ver == (True, True):
+            self.status.setStyleSheet("color: green")  # Changing the color
+            self.status.showMessage("Thanks!")
+        elif ver == (True, False):
+            self.status.setStyleSheet("color: red")  # Changing the color
+            self.status.showMessage("Wrong password")
+        elif ver == (False, False):
+            self.status.setStyleSheet("color: red")  # Changing the color
+            self.status.showMessage("Wrong email or user is not registered")
 
     def createStatusBar(self):
         self.status.showMessage("Ready", 2500)
@@ -72,7 +83,6 @@ class UserLoginWindow(QMainWindow):
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
-
     window = UserLoginWindow()
     window.show()
     app.exec_()
