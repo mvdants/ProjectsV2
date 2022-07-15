@@ -12,6 +12,7 @@ These are my projects, which I will do over time. Some of them are already compl
 
 ### JavaScripts Projects
 
+- Tic Tac Toe (Jogo da velha)
 - Bombman game
 
 ### Dart Projects
