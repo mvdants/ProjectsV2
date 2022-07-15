@@ -2,6 +2,7 @@
 
 These are my projects, which I will do over time. Some of them are already completed, but others are not yet.
 
+See "master branch" to view them.
 
 
 ### Python Projects
