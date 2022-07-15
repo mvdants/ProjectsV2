@@ -25,10 +25,15 @@ def write_json_file(all_users: list) -> None:
         f.close()
 
 
+def get_all_user_email() -> list:
+    """Getting all email registered and making a list"""
+    return [user["email"] for user in read_json_file()]
+
+
 def verify_user(user_email: str, user_password: str) -> Tuple[bool, bool]:
 
     # Getting all email registered and making a list
-    users_email: list = [user["email"] for user in read_json_file()]
+    users_email: list = get_all_user_email()
 
     # Getting all password registered and making a list
     users_password: list = [user["password"] for user in read_json_file()]

@@ -4,7 +4,7 @@
         "name":"Miguel",
         "surname":"MACEDO DANTAS",
         "birthday":"26-08-1999",
-        "gender":"M",
+        "gender":"male",
         "email":"miguelvitordantas@gmail.com",
         "password":"123456"
     },
@@ -1042,5 +1042,14 @@
         "gender":"female",
         "email":"charline.vincent@example.com",
         "password":"vancouve"
+    },
+    {
+        "id":116,
+        "name":"Miguel",
+        "surname":"DANTAS",
+        "birthday":"01.01.2000",
+        "gender":"male",
+        "email":"miguelvitordantas@gmail.com.br",
+        "password":"123456"
     }
 ]
