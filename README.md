@@ -16,6 +16,7 @@ See "master branch" to view them.
 
 </div>
 
+
 ### About the projects:
 - Creating 3D images: *Get a n numbers of images 2D and create an image 3D*
 - Eletronics Filters: *Create a tool to facilite the user to create and calculate the values of analogics filters*
@@ -35,11 +36,18 @@ See "master branch" to view them.
 "Creating 3D images" project: 
 1. This project is complex, so i still searching a way to process the images as I want.
 
-### JavaScripts Projects
+<h2 align="center"> JavaScripts </h2>
 
-- Tic Tac Toe (Jogo da velha)
-- Bombman game
+<div align="center">
 
-### Dart Projects
+|      Project Name     |   status    |
+|-----------------------|-------------|
+| Tic Tac Toe           | in progress |
+| Bombman game          | not started |
 
-- JobFast App
+</div>
+
+
+<h2 align="center"> Dart & Flutter </h2>
+
+- JobFast Mobile app : *App based on Instagram and Linkedin*
