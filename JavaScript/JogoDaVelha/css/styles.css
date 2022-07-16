@@ -1,0 +1,67 @@
+.btn{
+    position: absolute;
+    width: 200px;
+    height: 50px;
+    margin: 0;
+    top: 80%;
+    left: 43.5%;
+}
+
+.mira{
+    position: absolute;
+    height: 500px;
+    width: 700px;
+    margin: 0;
+    top: 10%;
+    left: 25%;
+}
+
+.x{
+    width: 100px;
+    height: 100px;
+    position:absolute;
+    right: 50px;
+}
+
+.o{
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    left: 50px;
+}
+
+#o1{
+    top: 50px;
+}
+
+#o2{
+    top: 175px;
+}
+
+#o3{
+    top: 300px;
+}
+
+#o4{
+    top: 425px;
+}
+
+#o5{
+    top: 550px;
+}
+
+#x1{
+    top: 50px;
+}
+#x2{
+    top: 175px;
+}
+#x3{
+    top: 300px;
+}
+#x4{
+    top: 425px;
+}
+#x5{
+    top: 550px;
+}
