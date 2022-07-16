@@ -1,5 +1,4 @@
 from PySide2.QtWidgets import (QMainWindow, QDesktopWidget, QStatusBar)
-from PySide2.QtCore import Qt
 from typing import Union, Literal
 
 

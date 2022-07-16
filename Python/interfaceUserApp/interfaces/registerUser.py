@@ -1,6 +1,6 @@
 import sys
 from PySide2.QtCore import Qt
-from PySide2.QtWidgets import (QApplication, QDesktopWidget,
+from PySide2.QtWidgets import (QApplication,
                                QVBoxLayout, QWidget, QHBoxLayout,
                                QPushButton, QLabel, QLineEdit, QRadioButton, QDateTimeEdit)
 from interfaces.basicInterface import BasicInterface
