@@ -3,13 +3,13 @@
     width: 200px;
     height: 50px;
     margin: 0;
-    top: 80%;
+    top: 90%;
     left: 43.5%;
 }
 
 .mira{
     position: absolute;
-    height: 500px;
+    height: 600px;
     width: 700px;
     margin: 0;
     top: 10%;
@@ -20,14 +20,14 @@
     width: 100px;
     height: 100px;
     position:absolute;
-    right: 50px;
+    left: 50px;
 }
 
 .o{
     position: absolute;
     width: 100px;
     height: 100px;
-    left: 50px;
+    right: 50px;
 }
 
 #o1{
