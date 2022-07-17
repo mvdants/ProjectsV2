@@ -33,13 +33,13 @@ const initial_x_left = "10%";
 const initial_o_left = "80%";
 
 btn.onclick = function(){  
-    for(let index in list_x_elements){
-        list_x_elements[index].style.top = `${initial_top_position[index]}px`;
-        list_x_elements[index].style.left = initial_x_left;
+    for(let element of list_x_elements){
+        element.style.top = `${initial_top_position[list_x_elements.indexOf(element)]}px`;
+        element.style.left = initial_x_left;
     }
-    for(let index in list_o_elements){
-        list_o_elements[index].style.top = `${initial_top_position[index]}px`;
-        list_o_elements[index].style.left = initial_o_left;  
+    for(let element of list_o_elements){
+        element.style.top = `${initial_top_position[list_o_elements.indexOf(element)]}px`;
+        element.style.left = initial_o_left;  
     }
 }
 
@@ -50,12 +50,7 @@ for(let index in list_x_elements){
             // second click
             if(list_imgx_clicked[index] === true){
                 list_imgx_clicked[index] = false
-                let position_left = list_x_elements[index].getBoundingClientRect().left;
-                let position_top = list_x_elements[index].getBoundingClientRect().top;
-                console.log("left ", position_left);
-                console.log("top ", position_top);
-                list_x_elements[index].style.left = `${verify_position(position_left, position_top)[0]}px`;
-                list_x_elements[index].style.top = `${verify_position(position_left, position_top)[1]}px`;
+                set_automatic_position(list_x_elements[index]);
 
             // first click
             }else{
@@ -69,6 +64,7 @@ for(let index in list_x_elements){
         // second clicks
         if(list_imgo_clicked[index] === true){
             list_imgo_clicked[index] = false;
+            set_automatic_position(list_o_elements[index]);
         
         // first click
         }else{
@@ -95,20 +91,44 @@ document.addEventListener("mousemove", function(event){
     }
 });
 
-function verify_position(position_left, position_top){
+function verify_position_left(position_left){
     let pos_left = 0;
-    let pos_top = 0;
-    if(position_left > 300 && position_top > 100){
-        pos_left = 500;
-        pos_top = 500;
+    if(position_left > 300 && position_left < 500){
+        pos_left = 350;
+    }else if(position_left > 500 && position_left < 700){
+        pos_left = 550;
+    }else if(position_left > 700 && position_left < 900){
+        pos_left = 750;
     }else{
-        pos_left = 250;
-        pos_top = 250;
+        pos_left = position_left;
     }
-    console.log(`pos_left: ${pos_left}, pos_top: ${pos_top}`);
-    return [pos_left, pos_top];
+    console.log(`pos_left: ${pos_left}`);
+    return pos_left;
 }
 
+function verify_position_top(position_top){
+    let pos_top = 0;
+    if(position_top > 100 && position_top < 300){
+        pos_top = 150;
+    }else if(position_top > 300 && position_top < 500){
+        pos_top = 350;
+    }else if(position_top > 500 && position_top < 700){
+        pos_top = 550;
+    }else{
+        pos_top = position_top;
+    }
+    console.log(`pos_top: ${pos_top}`);
+    return pos_top;
+}
+
+function set_automatic_position(element){
+    let position_left = element.getBoundingClientRect().left;
+    let position_top = element.getBoundingClientRect().top;
+    // console.log("left ", position_left);
+    // console.log("top ", position_top);
+    element.style.left = `${verify_position_left(position_left)}px`;
+    element.style.top = `${verify_position_top(position_top)}px`;
+}
 
 // use after ...
 function make_mira_element(element){
