@@ -20,14 +20,14 @@
     width: 100px;
     height: 100px;
     position:absolute;
-    left: 50px;
+    left: 10%;
 }
 
 .o{
     position: absolute;
     width: 100px;
     height: 100px;
-    right: 50px;
+    left: 80%;
 }
 
 #o1{
