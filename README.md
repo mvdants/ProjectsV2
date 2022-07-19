@@ -51,8 +51,8 @@ See "master branch" to view them.
 
 - *Tic tac toe also known as "Jogo da Velha" is a game that I am creating to practice my habilities and prepare me to the next project : Bombman.*
 - *The Bombman game will me my forth project in JavaScript. The famous and very fun game !*
-- *The task list was a simple project to fix my ideas about JavaScript *
-- *The Project to search Github repositories is a project to practice my habilities about async and sync programming.*
+- *The task list was a simple project to create a list of tasks to do and store in the web browser*
+- *The Project to search Github repositories is a project to search repositories in github and store on the web browser. The user in this project has the image of the repository , the name and the acess link. That way, the user can easily acess yours saved repos.*
 
 <h2 align="center"> Dart & Flutter </h2>
 
