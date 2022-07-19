@@ -44,9 +44,15 @@ See "master branch" to view them.
 |-----------------------|-------------|
 | Tic Tac Toe           | in progress |
 | Bombman game          | not started |
+| Task list.            |  concluded  |
+| search github repo    |  concluded  |
 
 </div>
 
+- *Tic tac toe also known as "Jogo da Velha" is a game that I am creating to practice my habilities and prepare me to the next project : Bombman.*
+- *The Bombman game will me my forth project in JavaScript. The famous and very fun game !*
+- *The task list was a simple project to fix my ideas about JavaScript *
+- *The Project to search Github repositories is a project to practice my habilities about async and sync programming.*
 
 <h2 align="center"> Dart & Flutter </h2>
 
