@@ -41,9 +41,8 @@ function set_initial_positions(...list_of_element){
     // console.log(list_of_element);
     for(list of list_of_element){
         list.forEach((object) => {
-            console.log(object);
-            object.element.style.top = `${element.init_top_pos}px`;
-            object.element.style.left = `${element.init_left_pos}px`;
+            object.element.style.top = `${object.init_top_pos}px`;
+            object.element.style.left = `${object.init_left_pos}px`;
         });
     }      
 }
