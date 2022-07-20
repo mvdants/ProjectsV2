@@ -38,7 +38,6 @@ btn.onclick = () => {
 }
 
 function set_initial_positions(...list_of_element){
-    // console.log(list_of_element);
     for(list of list_of_element){
         list.forEach((object) => {
             object.element.style.top = `${object.init_top_pos}px`;
@@ -76,8 +75,6 @@ function verify_second_click(object){
 function set_automatic_position(object){
     let position_left = object.element.getBoundingClientRect().left;
     let position_top = object.element.getBoundingClientRect().top;
-    // console.log("left ", position_left);
-    // console.log("top ", position_top);
     object.element.style.left = `${verify_position_left(position_left)}px`;
     object.element.style.top = `${verify_position_top(position_top)}px`;
 }
@@ -111,23 +108,20 @@ function verify_position_top(position_top){
 }
 
 // Ading the mousemove action to the page
-document.addEventListener("mousemove", function(event){
-        list_x_elements.forEach((object) => {
-            if(object.clicked === true){
-                update_position(event, object);
-                object.locked = true;
-            }else{
-                
-            }
-        });
+document.addEventListener("mousemove", (event) => {
+    set_new_position(event, list_x_elements, list_o_elements);
+});
 
-        list_o_elements.forEach((object) => {
+function set_new_position(event, ...list_of_elements){
+    for(lista of list_of_elements){
+        lista.forEach((object)=>{
             if(object.clicked === true){
                 update_position(event, object);
                 object.locked = true;
             }
         });
-    });
+    }
+}
 
 function update_position(event, object){
     object.element.style.top = event.clientY - object.offsetY + "px";
