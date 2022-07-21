@@ -35,8 +35,9 @@ function make_mira_element(element){
 
 // Attribuate to the button function click -> set initial positions
 btn.onclick = () => {
-   set_initial_positions(list_x_elements, list_o_elements);
-   unlock_elements(list_x_elements, list_o_elements);
+    unlock_elements(list_x_elements, list_o_elements);
+    unclick_elements(list_x_elements, list_o_elements);
+    set_initial_positions(list_x_elements, list_o_elements);  
 }
 
 function set_initial_positions(...list_of_element){
@@ -55,6 +56,15 @@ function unlock_elements(...list_of_elements){
         });
     }
 }
+
+function unclick_elements(...list_of_elements){
+    for(lista of list_of_elements){
+        lista.forEach((object)=>{
+            object.clicked = false;
+        });
+    }
+}
+
 
 // Attributing a function for each img element when clicked
 list_x_elements.forEach((object) => {
@@ -79,6 +89,10 @@ function verify_second_click(object){
         // denied move an other time the object
         if (locked_left===true && locked_top===true){
             object.locked = true;
+            let numbers = count_number_objects_moved(list_x_elements);
+            if(numbers >= 3){
+                verify_victory(list_x_elements);
+            }  
         }
 
     }else{
@@ -127,6 +141,44 @@ function verify_position_top(position_top){
         pos_top = position_top;
         confirmed = false;
     }return [pos_top + "px", confirmed];
+}
+
+function count_number_objects_moved(list_of_elements){
+    let object_moved = 0;
+    list_of_elements.forEach((object, index) => {
+        if(object.locked === true){
+            object_moved += 1;
+        }
+    }); return object_moved;
+}
+
+function verify_victory(list_of_elements){
+    let pos_obj_lock = [];
+    list_of_elements.forEach((object)=>{
+        if(object.locked === true){
+            pos_obj_lock.push({
+                top: object.element.getBoundingClientRect().top,
+                left: object.element.getBoundingClientRect().left,
+            });
+        }
+    });
+
+    let victory = false;
+    for(let i=0; i<pos_obj_lock.length - 1; i++){
+        if(pos_obj_lock[i].top === pos_obj_lock[i+1].top){
+            victory = true;
+        }else if(pos_obj_lock[i].left === pos_obj_lock[i+1].left){
+            victory = true;
+        }else if(Math.abs(pos_obj_lock[i].left - pos_obj_lock[i+1].left) == 200 && 
+                 Math.abs(pos_obj_lock[i].top - pos_obj_lock[i+1].top) == 200){
+            victory = true;
+        }else{
+            verified = false;
+        }
+    }
+    if(victory === true){
+        console.log("u win");
+    }
 }
 
 // Ading the mousemove action to the page
