@@ -29,9 +29,13 @@ function make_mira_element(element){
         offsetX: element.getBoundingClientRect().width/2,
         offsetY: element.getBoundingClientRect().height/2,
         clicked: false,
-        locked: false
+        locked: false,
+        blocked: true
     }
 }
+
+// Allowing the x to play first
+allow_player(list_x_elements);
 
 // Attribuate to the button function click -> set initial positions
 btn.onclick = () => {
@@ -40,9 +44,15 @@ btn.onclick = () => {
     set_initial_positions(list_x_elements, list_o_elements);  
 }
 
+// Attributing a function for each img element when clicked
+set_imgs_onclick_function(list_x_elements, list_o_elements);
+
+
+
 function set_initial_positions(...list_of_element){
     for(list of list_of_element){
         list.forEach((object) => {
+            console.log(object.element);
             object.element.style.top = `${object.init_top_pos}px`;
             object.element.style.left = `${object.init_left_pos}px`;
         });
@@ -65,20 +75,15 @@ function unclick_elements(...list_of_elements){
     }
 }
 
-
-// Attributing a function for each img element when clicked
-list_x_elements.forEach((object) => {
-    object.element.onclick = () => {
-        verify_second_click(object);
+function set_imgs_onclick_function(...list_of_elements){
+    for(lista of list_of_elements){
+        lista.forEach((object)=>{
+            object.element.onclick = () => {
+                verify_second_click(object);
+            }
+        });
     }
-});
-
-// Attributing a function for each img element when clicked
-list_o_elements.forEach((object) => {
-    object.element.onclick = () => {
-        verify_second_click(object);
-    }
-});
+}
 
 function verify_second_click(object){
     if(object.clicked === true){
@@ -89,16 +94,54 @@ function verify_second_click(object){
         // denied move an other time the object
         if (locked_left===true && locked_top===true){
             object.locked = true;
-            let numbers = count_number_objects_moved(list_x_elements);
-            if(numbers >= 3){
-                verify_victory(list_x_elements);
-            }  
+
+            // Verify if x won
+            let numbers_x = count_number_objects_moved(list_x_elements);
+            if(numbers_x >= 3){
+                let victory_x = verify_victory(list_x_elements);
+                if(victory_x === true){
+                    console.log("'X' ganhou o jogo");
+                }
+            }
+
+            // Verify if o won
+            let numbers_o = count_number_objects_moved(list_o_elements);
+            if(numbers_o >= 3){
+                let victory_o = verify_victory(list_x_elements);
+                if(victory_o === true){
+                    console.log("'O' ganhou o jogo");
+                }
+            }
+
+            // if the first is denied, all of them is also denied
+            if(list_x_elements[0].blocked === false){
+                allow_player(list_o_elements);
+                deny_player(list_x_elements);
+            }else{
+                allow_player(list_x_elements);
+                deny_player(list_o_elements);
+            }
+            
         }
 
     }else{
         // first click
+        if(object.blocked === false){
             object.clicked = true;
+        }   
     }
+}
+
+function allow_player(list_of_elements){
+    list_of_elements.forEach((object)=>{
+        object.blocked = false;
+    });
+}
+
+function deny_player(list_of_elements){
+    list_of_elements.forEach((object)=>{
+        object.blocked = true;
+    });
 }
 
 function set_automatic_position(object){
@@ -154,6 +197,8 @@ function count_number_objects_moved(list_of_elements){
 
 function verify_victory(list_of_elements){
     let pos_obj_lock = [];
+
+    // Get objects positions of the images that were moved
     list_of_elements.forEach((object)=>{
         if(object.locked === true){
             pos_obj_lock.push({
@@ -164,6 +209,8 @@ function verify_victory(list_of_elements){
     });
 
     let victory = false;
+
+    // Verify positions of the images and return if the user won or not
     for(let i=0; i<pos_obj_lock.length - 1; i++){
         if(pos_obj_lock[i].top === pos_obj_lock[i+1].top){
             victory = true;
@@ -175,10 +222,7 @@ function verify_victory(list_of_elements){
         }else{
             verified = false;
         }
-    }
-    if(victory === true){
-        console.log("u win");
-    }
+    }return victory;
 }
 
 // Ading the mousemove action to the page
