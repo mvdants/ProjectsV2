@@ -52,7 +52,6 @@ set_imgs_onclick_function(list_x_elements, list_o_elements);
 function set_initial_positions(...list_of_element){
     for(list of list_of_element){
         list.forEach((object) => {
-            console.log(object.element);
             object.element.style.top = `${object.init_top_pos}px`;
             object.element.style.left = `${object.init_left_pos}px`;
         });
@@ -155,7 +154,6 @@ function set_automatic_position(object){
 }
 
 function verify_position_left(position_left){
-    console.log(`pos_left: ${position_left}`);
     let pos_left = 0;
     let confirmed = true;
     if(position_left > 375 && position_left < 575){
@@ -171,7 +169,6 @@ function verify_position_left(position_left){
 }
 
 function verify_position_top(position_top){
-    console.log(`pos_top: ${position_top}`);
     let pos_top = 0;
     let confirmed = true;
     if(position_top > 100 && position_top < 225){
@@ -208,21 +205,40 @@ function verify_victory(list_of_elements){
         }
     });
 
-    let victory = false;
+     // Verify positions of the images and return if the user won or not
+    let [victory_row, victory_column, victory_diagonal] = [false, false, false];
 
-    // Verify positions of the images and return if the user won or not
+    // win per row
     for(let i=0; i<pos_obj_lock.length - 1; i++){
         if(pos_obj_lock[i].top === pos_obj_lock[i+1].top){
-            victory = true;
-        }else if(pos_obj_lock[i].left === pos_obj_lock[i+1].left){
-            victory = true;
-        }else if(Math.abs(pos_obj_lock[i].left - pos_obj_lock[i+1].left) == 200 && 
-                 Math.abs(pos_obj_lock[i].top - pos_obj_lock[i+1].top) == 200){
-            victory = true;
+            victory_row = true;
         }else{
-            verified = false;
+            victory_row = false;
         }
-    }return victory;
+    }
+
+    // win per column
+    for(let i=0; i<pos_obj_lock.length - 1; i++){  
+        if(pos_obj_lock[i].left === pos_obj_lock[i+1].left){
+            victory_column = true;
+        }else{
+            victory_column = false;
+        }
+    }
+
+    // win per diagonal
+    for(let i=0; i<pos_obj_lock.length - 1; i++){  
+        if(Math.abs(pos_obj_lock[i].left - pos_obj_lock[i+1].left) == 200 && 
+           Math.abs(pos_obj_lock[i].top - pos_obj_lock[i+1].top) == 200){
+            victory_diagonal = true;
+        }else{
+            victory_diagonal = false;
+        }
+    }
+    console.log("row: ", victory_row);
+    console.log("column: ", victory_column);
+    console.log("diagonal: ", victory_diagonal);
+    return victory_row || victory_column || victory_diagonal;
 }
 
 // Ading the mousemove action to the page
