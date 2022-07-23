@@ -93,10 +93,10 @@ function verify_second_click(object){
         // denied move an other time the object
         if (locked_left===true && locked_top===true){
             object.locked = true;
-
             // Verify if x won
             let numbers_x = count_number_objects_moved(list_x_elements);
-            if(numbers_x >= 3){
+            if(numbers_x >= 3){  // start to verify if an user win the game
+                console.log("verify 'x'");
                 let victory_x = verify_victory(list_x_elements);
                 if(victory_x === true){
                     console.log("'X' ganhou o jogo");
@@ -105,8 +105,9 @@ function verify_second_click(object){
 
             // Verify if o won
             let numbers_o = count_number_objects_moved(list_o_elements);
-            if(numbers_o >= 3){
-                let victory_o = verify_victory(list_x_elements);
+            if(numbers_o >= 3){  // start to verify if an user win the game
+                console.log("verify 'o'");
+                let victory_o = verify_victory(list_o_elements);
                 if(victory_o === true){
                     console.log("'O' ganhou o jogo");
                 }
@@ -185,60 +186,70 @@ function verify_position_top(position_top){
 
 function count_number_objects_moved(list_of_elements){
     let object_moved = 0;
+    let list_objects_moved = [];
     list_of_elements.forEach((object, index) => {
         if(object.locked === true){
+            list_objects_moved.push(object);
             object_moved += 1;
         }
     }); return object_moved;
 }
 
 function verify_victory(list_of_elements){
-    let pos_obj_lock = [];
+
+    // creating a new list to make easier to understand the code
+    let left = [];
+    let top = [];
 
     // Get objects positions of the images that were moved
     list_of_elements.forEach((object)=>{
         if(object.locked === true){
-            pos_obj_lock.push({
-                top: object.element.getBoundingClientRect().top,
-                left: object.element.getBoundingClientRect().left,
-            });
+            left.push(object.element.getBoundingClientRect().left);
+            top.push(object.element.getBoundingClientRect().top);
         }
     });
-
+    let left_sorted = left.sort((a, b) => a - b);
+    let top_sorted = top.sort((a, b) => a - b);
      // Verify positions of the images and return if the user won or not
-    let [victory_row, victory_column, victory_diagonal] = [false, false, false];
-
-    // win per row
-    for(let i=0; i<pos_obj_lock.length - 1; i++){
-        if(pos_obj_lock[i].top === pos_obj_lock[i+1].top){
-            victory_row = true;
-        }else{
-            victory_row = false;
+    
+    for(let i=0;i<left.length - 2;i++){
+        if(left_sorted[i] === left_sorted[i+1] && left_sorted[i+1] === left_sorted[i+2]){
+            console.log("win column");
+            return true;
+        }else if(top_sorted[i] === top_sorted[i+1] && top_sorted[i+1] === top_sorted[i+2]){
+            console.log("win row");
+            return true;
         }
     }
-
-    // win per column
-    for(let i=0; i<pos_obj_lock.length - 1; i++){  
-        if(pos_obj_lock[i].left === pos_obj_lock[i+1].left){
-            victory_column = true;
-        }else{
-            victory_column = false;
+    // Filtering the positions to get only the validated diagonal positions
+    let diagonal = [];
+    for(let i=0;i<left.length;i++){
+        if((left[i] === 475 && top[i] === 125) ||
+           (left[i] === 675 && top[i] === 325) ||
+           (left[i] === 875 && top[i] === 525) ||
+           (left[i] === 475 && top[i] === 525) ||
+           (left[i] === 875 && top[i] === 125)
+        ){
+            diagonal.push([left[i], top[i]]);
         }
     }
-
-    // win per diagonal
-    for(let i=0; i<pos_obj_lock.length - 1; i++){  
-        if(Math.abs(pos_obj_lock[i].left - pos_obj_lock[i+1].left) == 200 && 
-           Math.abs(pos_obj_lock[i].top - pos_obj_lock[i+1].top) == 200){
-            victory_diagonal = true;
-        }else{
-            victory_diagonal = false;
+    
+    // if we have more or equal then 3 diagonal positions, we can maybe win the game
+    if(diagonal.length>=3){
+        console.log("diagonal > 3");
+        console.log(diagonal);
+        for(let i=0; i<diagonal.length - 2; i++){
+            // Mathematical validation to certify if 3 points are aligned on the space 
+            let a = (Math.abs(diagonal[i][0] - diagonal[i+1][0]))/(Math.abs(diagonal[i][1] - diagonal[i+1][1]));
+            let b = (Math.abs(diagonal[i+1][0] - diagonal[i+2][0]))/(Math.abs(diagonal[i+1][1] - diagonal[i+2][1]));
+            let c = (Math.abs(diagonal[i][0] - diagonal[i+2][0]))/(Math.abs(diagonal[i][1] - diagonal[i+2][1]));
+            console.log(a, b, c);
+            if(a === 1 && b === 1 && c === 1){
+                console.log("win diagonal");
+                return true;
+            }
         }
     }
-    console.log("row: ", victory_row);
-    console.log("column: ", victory_column);
-    console.log("diagonal: ", victory_diagonal);
-    return victory_row || victory_column || victory_diagonal;
 }
 
 // Ading the mousemove action to the page
