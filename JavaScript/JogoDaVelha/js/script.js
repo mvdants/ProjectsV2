@@ -78,7 +78,13 @@ function set_imgs_onclick_function(...list_of_elements){
     for(lista of list_of_elements){
         lista.forEach((object)=>{
             object.element.onclick = () => {
-                verify_second_click(object);
+                if(verify_second_click(object) === true){
+                    if(end() === true){
+                        console.log("FIM DE JOGO");
+                    }else{
+                        change_turn();
+                    }
+                }
             }
         });
     }
@@ -89,47 +95,49 @@ function verify_second_click(object){
         // second click
         object.clicked = false;
         let [locked_top, locked_left] = set_automatic_position(object);
-
         // denied move an other time the object
         if (locked_left===true && locked_top===true){
-            object.locked = true;
-            // Verify if x won
-            let numbers_x = count_number_objects_moved(list_x_elements);
-            if(numbers_x >= 3){  // start to verify if an user win the game
-                console.log("verify 'x'");
-                let victory_x = verify_victory(list_x_elements);
-                if(victory_x === true){
-                    console.log("'X' ganhou o jogo");
-                }
-            }
-
-            // Verify if o won
-            let numbers_o = count_number_objects_moved(list_o_elements);
-            if(numbers_o >= 3){  // start to verify if an user win the game
-                console.log("verify 'o'");
-                let victory_o = verify_victory(list_o_elements);
-                if(victory_o === true){
-                    console.log("'O' ganhou o jogo");
-                }
-            }
-
-            // if the first is denied, all of them is also denied
-            if(list_x_elements[0].blocked === false){
-                allow_player(list_o_elements);
-                deny_player(list_x_elements);
-            }else{
-                allow_player(list_x_elements);
-                deny_player(list_o_elements);
-            }
-            
-        }
-
+            object.locked = true;            
+        }return true;
     }else{
         // first click
         if(object.blocked === false){
             object.clicked = true;
-        }   
+        }return false;
     }
+}
+
+function end(){
+    // Verify if x won
+    let numbers_x = count_number_objects_moved(list_x_elements);
+    if(numbers_x >= 3){  // start to verify if an user win the game
+        console.log("verify 'x'");
+        let victory_x = verify_victory(list_x_elements);
+        if(victory_x === true){
+            console.log("'X' ganhou o jogo");
+        }
+    }
+
+    // Verify if o won
+    let numbers_o = count_number_objects_moved(list_o_elements);
+    if(numbers_o >= 3){  // start to verify if an user win the game
+        console.log("verify 'o'");
+        let victory_o = verify_victory(list_o_elements);
+        if(victory_o === true){
+            console.log("'O' ganhou o jogo");
+        }
+    }
+}
+
+function change_turn(){
+        // if the first is denied to move, all of them is also denied.
+        if(list_x_elements[0].blocked === false){
+            allow_player(list_o_elements);
+            deny_player(list_x_elements);
+        }else{
+            allow_player(list_x_elements);
+            deny_player(list_o_elements);
+        }
 }
 
 function allow_player(list_of_elements){
@@ -186,10 +194,8 @@ function verify_position_top(position_top){
 
 function count_number_objects_moved(list_of_elements){
     let object_moved = 0;
-    let list_objects_moved = [];
-    list_of_elements.forEach((object, index) => {
+    list_of_elements.forEach((object) => {
         if(object.locked === true){
-            list_objects_moved.push(object);
             object_moved += 1;
         }
     }); return object_moved;
@@ -200,7 +206,6 @@ function verify_victory(list_of_elements){
     // creating a new list to make easier to understand the code
     let left = [];
     let top = [];
-
     // Get objects positions of the images that were moved
     list_of_elements.forEach((object)=>{
         if(object.locked === true){
@@ -220,24 +225,28 @@ function verify_victory(list_of_elements){
             console.log("win row");
             return true;
         }
-    }
+    }delete left_sorted, top_sorted;
+
     // Filtering the positions to get only the validated diagonal positions
     let diagonal = [];
+    console.log("start the part of diagonal");
+    console.log("length: ", diagonal.length);
     for(let i=0;i<left.length;i++){
-        if((left[i] === 475 && top[i] === 125) ||
+        console.log("left.length ", left.length);
+        console.log(left[i], top[i]);
+        if((left[i] === 475 && (top[i] === 125 || top[i] === 525)) ||
            (left[i] === 675 && top[i] === 325) ||
-           (left[i] === 875 && top[i] === 525) ||
-           (left[i] === 475 && top[i] === 525) ||
-           (left[i] === 875 && top[i] === 125)
+           (left[i] === 875 && (top[i] === 525 || top[i] === 125))
         ){
+            console.log("before ", diagonal.length);
             diagonal.push([left[i], top[i]]);
+            console.log("after", diagonal.length);
         }
     }
     
     // if we have more or equal then 3 diagonal positions, we can maybe win the game
     if(diagonal.length>=3){
         console.log("diagonal > 3");
-        console.log(diagonal);
         for(let i=0; i<diagonal.length - 2; i++){
             // Mathematical validation to certify if 3 points are aligned on the space 
             let a = (Math.abs(diagonal[i][0] - diagonal[i+1][0]))/(Math.abs(diagonal[i][1] - diagonal[i+1][1]));
