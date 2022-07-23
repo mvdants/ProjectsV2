@@ -2,7 +2,7 @@ import json
 from typing import Union, Tuple
 
 
-users_file = "../users/users.json"
+users_file = "../data/users.json"
 Email = str
 
 
