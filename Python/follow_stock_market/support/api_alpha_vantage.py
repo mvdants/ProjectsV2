@@ -100,35 +100,40 @@ class TimeSeriesData:
             raise ConnectionError("The request was not well done, we could not connect to the server and get the data")
 
     @staticmethod
-    def set_alphabetical_order_symbols_data():
+    def set_alphabetical_order_symbols_data() -> None:
+        """
+        Set in alphabetical order the file "../data/list_company_symbols".
+        """
         with open(symbols_data, 'r') as file:
             lines = file.readlines()
             file.close()
 
-        lines.sort()
-
+        lines.sort()  # Set alphabetical order
         with open("../data/list_company_symbols", "w") as file:
             file.writelines(lines)
             file.close()
 
     @staticmethod
-    def add_symbol_to_data(symbol: str):
+    def add_symbol_to_data(symbol: Union[str, list]) -> None:
+        """Adding a new symbol to the file '../data/list_company_symbols'."""
         with open(symbols_data, 'r') as file:
             lines = file.readlines()
             file.close()
 
-        lines.append(symbol)
-        lines.sort()
+        # Verify if the parameter is symbol is a list or a single string and add to the list
+        if isinstance(symbol, str):
+            lines.append(symbol + "\n")
+        elif isinstance(symbol, list):
+            lines.extend([sym + "\n" for sym in symbol if isinstance(sym, str)])
 
+        TimeSeriesData.set_alphabetical_order_symbols_data()  # set alphabetical order
         with open("../data/list_company_symbols", "w") as file:
             file.writelines(lines)
             file.close()
 
 
 if __name__ == '__main__':
-    """action = TimeSeriesData(symbol="IBM", time_series="d", key=my_api_key)
-    # op = get_open_values(re)
-    plt.plot(action.open_values)
-    plt.axis("off")
-    plt.show()"""
-    TimeSeriesData.add_symbol_to_data("BAAC")
+    lista = [1, 2, 3, 4, 5, 6]
+    lista2 = ["a", "b", "c", "d", "1", 1]
+    lista.extend([value + "\n" for value in lista2 if isinstance(value, str)])
+    print(lista)
