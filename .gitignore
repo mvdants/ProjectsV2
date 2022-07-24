@@ -1,2 +1,2 @@
 .DS_Store
-./Python/follow_stock_market/support/api_key.py
+/Python/follow_stock_market/support/api_key.py
