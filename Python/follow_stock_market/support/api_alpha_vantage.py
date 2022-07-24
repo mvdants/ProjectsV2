@@ -5,7 +5,6 @@ Script to get data from the stock market
 
 1. Put in alphabetical order the file ../data/list_company_symbols
     - Read all files
-    - Split the element using the "\n" character
     - Set the alphabetical order
     - Save and close
 
@@ -107,7 +106,3 @@ if __name__ == '__main__':
     plt.plot(action.open_values)
     plt.axis("off")
     plt.show()
-    # with open("../data/list_company_symbols", 'r') as file:
-    # lines = file.readlines()
-    # print(lines)
-    # file.close()
