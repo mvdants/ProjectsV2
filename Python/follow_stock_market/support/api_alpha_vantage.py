@@ -126,14 +126,8 @@ class TimeSeriesData:
         elif isinstance(symbol, list):
             lines.extend([sym + "\n" for sym in symbol if isinstance(sym, str)])
 
-        TimeSeriesData.set_alphabetical_order_symbols_data()  # set alphabetical order
         with open("../data/list_company_symbols", "w") as file:
             file.writelines(lines)
             file.close()
 
-
-if __name__ == '__main__':
-    lista = [1, 2, 3, 4, 5, 6]
-    lista2 = ["a", "b", "c", "d", "1", 1]
-    lista.extend([value + "\n" for value in lista2 if isinstance(value, str)])
-    print(lista)
+        TimeSeriesData.set_alphabetical_order_symbols_data()  # set alphabetical order before out
