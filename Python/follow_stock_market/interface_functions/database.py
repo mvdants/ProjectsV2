@@ -1,4 +1,6 @@
 """
+File Python unused...
+I am still studying this SQL ...
 https://www.freecodecamp.org/news/connect-python-with-sql/
 """
 
