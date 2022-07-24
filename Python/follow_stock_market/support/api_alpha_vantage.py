@@ -1,8 +1,6 @@
 """
 Script to get data from the stock market
 
-# Next steps:
-
 1. Put in alphabetical order the file ../data/list_company_symbols
     - Read all files
     - Set the alphabetical order
@@ -28,6 +26,8 @@ import matplotlib.pyplot as plt
 
 
 url_base = r'https://www.alphavantage.co/query?'
+
+symbols_data = "../data/list_company_symbols"
 
 
 class TimeSeriesData:
@@ -99,10 +99,36 @@ class TimeSeriesData:
         else:
             raise ConnectionError("The request was not well done, we could not connect to the server and get the data")
 
+    @staticmethod
+    def set_alphabetical_order_symbols_data():
+        with open(symbols_data, 'r') as file:
+            lines = file.readlines()
+            file.close()
+
+        lines.sort()
+
+        with open("../data/list_company_symbols", "w") as file:
+            file.writelines(lines)
+            file.close()
+
+    @staticmethod
+    def add_symbol_to_data(symbol: str):
+        with open(symbols_data, 'r') as file:
+            lines = file.readlines()
+            file.close()
+
+        lines.append(symbol)
+        lines.sort()
+
+        with open("../data/list_company_symbols", "w") as file:
+            file.writelines(lines)
+            file.close()
+
 
 if __name__ == '__main__':
-    action = TimeSeriesData(symbol="IBM", time_series="d", key=my_api_key)
+    """action = TimeSeriesData(symbol="IBM", time_series="d", key=my_api_key)
     # op = get_open_values(re)
     plt.plot(action.open_values)
     plt.axis("off")
-    plt.show()
+    plt.show()"""
+    TimeSeriesData.add_symbol_to_data("BAAC")
