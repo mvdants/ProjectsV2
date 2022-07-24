@@ -1,1 +1,0 @@
-my_api_key = "3Z4LYGVHLWQAXG1N"
