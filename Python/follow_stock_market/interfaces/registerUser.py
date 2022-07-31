@@ -1,7 +1,5 @@
-import sys
 from PySide2.QtCore import Qt
-from PySide2.QtWidgets import (QApplication,
-                               QVBoxLayout, QWidget, QHBoxLayout,
+from PySide2.QtWidgets import (QVBoxLayout, QWidget, QHBoxLayout,
                                QPushButton, QLabel, QLineEdit, QRadioButton, QDateTimeEdit)
 from interfaces.basicInterface import BasicInterface
 from interface_functions.functions import create_user, get_all_user_email, verify_email_exist
@@ -156,6 +154,9 @@ class RegisterUserWindow(BasicInterface):
 
 
 if __name__ == "__main__":
+    import sys
+    from PySide2.QtWidgets import QApplication
+
     app = QApplication(sys.argv)
     window = RegisterUserWindow()
     window.show()
