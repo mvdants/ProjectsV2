@@ -12,7 +12,6 @@ See "master branch" to view them.
 |-----------------------|-------------|
 | Creating 3D images    | in progress |
 | Eletronics Filters    | in progress |
-| Follow stocks markets | in progress |
 
 </div>
 
