@@ -19,14 +19,8 @@ See "master branch" to view them.
 ### About the projects:
 - Creating 3D images: *Get a n numbers of images 2D and create an image 3D*
 - Eletronics Filters: *Create a tool to facilite the user to create and calculate the values of analogics filters*
-- Follow stocks markets: *From a user registerd in the computer (json file) give him via email the infos about the stock market* 
 
 #### Next steps
-
-"Follow stocks markets" project: 
-1. Create an interface to create and remove actions that the user want to follow;
-  - Graphs, Curves, Indicators, etc.
-2. Send an email to the user to give him the infos acquired.
 
 "Eletronics Filters" Project:
 1. Add the function transfer filters and trace the curve of gain in frequency;
